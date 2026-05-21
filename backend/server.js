@@ -19,33 +19,52 @@ connectDB();
 const app = express();
 const server = http.createServer(app);
 
+// Define allowed base origins
+const allowedOrigins = [
+  'http://localhost:5173',
+  process.env.CLIENT_URL
+];
 
-// Middleware
-app.use(cors({ origin: [
-    'http://localhost:5173', 
-    process.env.CLIENT_URL // We will add this variable in Render later
-  ], credentials: true })); // Vite default port
+// Helper function to validate incoming origins (supports production and dynamic Vercel subdomains)
+const originValidator = (origin, callback) => {
+  if (!origin) return callback(null, true); // Allow server-to-server or postman requests
+  
+  if (allowedOrigins.includes(origin) || origin.endsWith('.vercel.app')) {
+    return callback(null, true);
+  }
+  
+  return callback(new Error('Blocked by CORS policy'), false);
+};
+
+// 1. HTTP Express Middleware Config
+app.use(cors({ 
+  origin: originValidator, 
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+})); 
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Socket.io Setup
+// 2. Socket.io Setup Config Fixed to Use Dynamic Origin Matching
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:5173',
-    methods: ['GET', 'POST']
+    origin: originValidator,
+    methods: ['GET', 'POST'],
+    credentials: true
   }
 });
 
 io.on('connection', (socket) => {
   console.log(`User connected: ${socket.id}`);
   
- 
-  
   socket.on('disconnect', () => {
     console.log(`User disconnected: ${socket.id}`);
   });
 });
 
+// API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/trips', tripRoutes);
 app.use('/api/activities', activityRoutes);
@@ -62,6 +81,3 @@ app.get('/', (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
-
-//trigger
