@@ -35,7 +35,9 @@ An intelligent, full-stack web application that takes the hassle out of trip pla
 
 To run this project locally, create .env files in both your frontend and backend directories.
 
-**Backend (backend/.env):**
+
+**Backend (`backend/.env`):**
+``env
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
@@ -46,11 +48,11 @@ GEMINI_API_KEY=your_gemini_api_key
 SMTP_USER=your_email@gmail.com
 SMTP_KEY=your_app_password
 RAPIDAPI_KEY=your_rapidapi_key
-CLIENT_URL=http://localhost:5173
+CLIENT_URL=http://localhost:5173``
 
 **Frontend (frontend/.env):**
-VITE_GOOGLE_MAPS_API_KEY=your_google_maps_api_key
-VITE_API_URL=http://localhost:5000/api
+``VITE_GOOGLE_MAPS_API_KEY=your_google_maps_api_key
+VITE_API_URL=http://localhost:5000/api``
 
 *(Note: When deploying, CLIENT_URL must point to your live Vercel frontend, and VITE_API_URL must point to your live Render backend).*
 
