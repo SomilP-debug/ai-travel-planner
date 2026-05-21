@@ -8,7 +8,7 @@ An intelligent, full-stack web application that takes the hassle out of trip pla
 * **🗺️ Interactive Mapping:** Utilizes the official `@vis.gl/react-google-maps` API with Advanced Markers to visualize routes, destinations, and points of interest dynamically.
 * **🔐 Secure User Authentication:** Full login and registration system using JWT (JSON Web Tokens), `localStorage` persistence, and secure password hashing.
 * **💾 Trip Management:** Users can save, view, and manage their generated trips in a personalized dashboard connected to a MongoDB Atlas database.
-* **🔗 Trip Sharing & Invites:** Share itineraries and invite collaborators seamlessly using dynamic routing and `window.location.origin` for automated live-URL generation via NodeMailer.
+* **🔗 Trip Sharing & Invites:** Share itineraries and invite collaborators seamlessly using dynamic routing and automated live-URL generation via NodeMailer.
 
 ## 🛠️ Tech Stack
 
