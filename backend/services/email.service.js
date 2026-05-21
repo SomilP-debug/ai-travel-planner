@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
 });
 
 export const sendInviteEmail = async (to, tripId, inviterName) => {
-  const inviteLink = `${window.location.origin}/trip/${tripId}/join`;
+  const inviteLink = `${process.env.CLIENT_URL}/trip/${tripId}/join`;
     
     const mailOptions = {
         from: '"AI Travel Planner" <no-reply@aitravel.com>',
