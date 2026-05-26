@@ -8,8 +8,6 @@ export const generateItinerary = async (destination, startDate, endDate, interes
   try {
     const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
     
-    // UPDATED PROMPT: Added lat and lng to the location object
-    // Inside your generateItinerary function:
 
 const prompt = `You are an expert travel planner. Create a daily itinerary for a trip to ${destination} from ${startDate} to ${endDate}.
 The user's interests are: ${interests}. 
@@ -42,7 +40,7 @@ Return ONLY a valid JSON object with the exact following structure. Do NOT inclu
   ]
 }`;
 
-    // UPDATED CONFIG: Force the API to output pure JSON
+  
     const result = await model.generateContent({
         contents: [{ role: 'user', parts: [{ text: prompt }] }],
         generationConfig: {
@@ -52,7 +50,7 @@ Return ONLY a valid JSON object with the exact following structure. Do NOT inclu
     
     const responseText = result.response.text();
     
-    // Keep the cleanup as a final safety net
+  
     const cleanedResponse = responseText.replace(/```json\n?|\n?```/g, '').trim();
     
     return JSON.parse(cleanedResponse);
