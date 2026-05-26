@@ -16,7 +16,6 @@ export const sendInviteEmail = async (to, tripId, inviterName) => {
   const inviteLink = `${process.env.CLIENT_URL}/trip/${tripId}/join`;
     
     const mailOptions = {
-        // FIX 1: Use your authenticated email address so Gmail doesn't block it as spam/spoofing
         from: `"AI Travel Planner" <${process.env.SMTP_USER}>`,
         to,
         subject: `${inviterName} invited you to collaborate on a trip!`,
@@ -32,7 +31,7 @@ export const sendInviteEmail = async (to, tripId, inviterName) => {
         console.log(`Invite email sent successfully to ${to}`);
     } catch (error) {
         console.error('Error sending invite email:', error);
-        // FIX 2: Throw the error so your Express controller can send a 500 status to the frontend
+       
         throw error;
     }
 };

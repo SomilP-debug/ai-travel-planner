@@ -5,7 +5,14 @@ export const useSocket = (tripId) => {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const newSocket = io('http://localhost:5000');
+    
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+    
+   
+    const backendUrl = apiUrl.replace('/api', '');
+
+
+    const newSocket = io(backendUrl);
     setSocket(newSocket);
 
     if (tripId) {
