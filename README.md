@@ -21,7 +21,7 @@ By leveraging Google's Gemini AI and live flight data from RapidAPI, this platfo
 * **🗺️ Interactive Mapping:** Utilizes the official google maps API with Advanced Markers to visualize routes, destinations, and points of interest dynamically.
 * **🔐 Secure User Authentication:** Full login and registration system using JWT (JSON Web Tokens), `localStorage` persistence, and secure password hashing.
 * **💾 Trip Management:** Users can save, view, and manage their generated trips in a personalized dashboard connected to a MongoDB Atlas database.
-* **🔗 Trip Sharing & Invites:** Share itineraries and invite collaborators seamlessly using dynamic routing and automated live-URL generation via NodeMailer.
+* **🔗 Trip Sharing & Invites:** Share itineraries and invite collaborators seamlessly via automated email delivery using the Brevo REST API, bypassing standard cloud SMTP firewalls.
 
 ---
 
@@ -37,7 +37,7 @@ By leveraging Google's Gemini AI and live flight data from RapidAPI, this platfo
 ### **Backend**
 * Node.js & Express.js
 * MongoDB & Mongoose (Atlas)
-* JWT Authentication & NodeMailer
+* JWT Authentication & Brevo API
 * ☁️ Deployed on **Render**
 
 ### **Third-Party APIs**
@@ -92,10 +92,9 @@ CLOUDINARY_CLOUD_NAME=your_cloudinary_name
 CLOUDINARY_API_KEY=your_cloudinary_api_key
 CLOUDINARY_API_SECRET=your_cloudinary_api_secret
 GEMINI_API_KEY=your_gemini_api_key
-SMTP_USER=your_email@gmail.com
-SMTP_KEY=your_app_password
 RAPIDAPI_KEY=your_rapidapi_key
 CLIENT_URL=http://localhost:5173
+BREVO_API_KEY=your_brevo_rest_api_key
 ```
 
 **Frontend (`frontend/.env`):**
