@@ -2,7 +2,6 @@ import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 dotenv.config();
 
-console.log(process.env.BREVO_SMTP_USER)
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
   port: 465,
@@ -17,7 +16,8 @@ export const sendInviteEmail = async (to, tripId, inviterName) => {
   const inviteLink = `${process.env.CLIENT_URL}/trip/${tripId}/join`;
     
     const mailOptions = {
-        from: '"AI Travel Planner" <no-reply@aitravel.com>',
+        // FIX 1: Use your authenticated email address so Gmail doesn't block it as spam/spoofing
+        from: `"AI Travel Planner" <${process.env.SMTP_USER}>`,
         to,
         subject: `${inviterName} invited you to collaborate on a trip!`,
         html: `
@@ -32,5 +32,7 @@ export const sendInviteEmail = async (to, tripId, inviterName) => {
         console.log(`Invite email sent successfully to ${to}`);
     } catch (error) {
         console.error('Error sending invite email:', error);
+        // FIX 2: Throw the error so your Express controller can send a 500 status to the frontend
+        throw error;
     }
 };
