@@ -1,5 +1,9 @@
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
+import dns from 'dns'; 
+
+dns.setDefaultResultOrder('ipv4first');
+
 dotenv.config();
 
 const transporter = nodemailer.createTransport({
@@ -31,7 +35,6 @@ export const sendInviteEmail = async (to, tripId, inviterName) => {
         console.log(`Invite email sent successfully to ${to}`);
     } catch (error) {
         console.error('Error sending invite email:', error);
-       
         throw error;
     }
 };
